@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Presentation</string>
+    <string name="mainNavigation_settings">Settings</string>
+    <string name="mainNavigation_about">About</string>
 </resources>
