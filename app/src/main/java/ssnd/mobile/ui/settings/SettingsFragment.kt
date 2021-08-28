@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import ssnd.mobile.R
+import ssnd.mobile.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment() {
 
+    private lateinit var binding: FragmentSettingsBinding
+
     override fun onCreateView(i: LayoutInflater, c: ViewGroup?, s: Bundle?): View =
-        i.inflate(R.layout.fragment_settings, c, false)
+        FragmentSettingsBinding.inflate(i, c, false).let { binding = it; it.root }
 
 }

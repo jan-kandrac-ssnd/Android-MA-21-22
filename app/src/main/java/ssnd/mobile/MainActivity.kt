@@ -2,20 +2,20 @@ package ssnd.mobile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.navigation.NavigationView
+import ssnd.mobile.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
         setupFullScreen()
         setupNavigation()
     }
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
      * nevyhnutne nastavit spravne paddingy a pod.
      */
     private fun setupFullScreen() {
-        findViewById<View>(R.id.toolbar).setOnApplyWindowInsetsListener { v, insets ->
+        binding.toolbar.setOnApplyWindowInsetsListener { v, insets ->
             val compatInsets = WindowInsetsCompat.toWindowInsetsCompat(insets)
             val statusBarInsets = compatInsets.getInsets(WindowInsetsCompat.Type.statusBars())
             v.setPadding(0, statusBarInsets.top, 0, 0)
@@ -42,14 +42,13 @@ class MainActivity : AppCompatActivity() {
     private fun setupNavigation() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navigation_host) as NavHostFragment
         val navController = navHostFragment.navController
-        val drawer = findViewById<NavigationView>(R.id.navigation_drawer)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
 
         val appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = setOf(R.id.aboutFragment, R.id.settingsFragment),
             drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         )
-        toolbar.setupWithNavController(navController, appBarConfiguration)
-        drawer.setupWithNavController(navController)
+
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.navigationDrawer.setupWithNavController(navController)
     }
 }
