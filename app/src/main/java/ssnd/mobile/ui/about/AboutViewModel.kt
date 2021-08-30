@@ -1,11 +1,14 @@
 package ssnd.mobile.ui.about
 
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import ssnd.mobile.di.Api
 import ssnd.mobile.net.request
-import ssnd.mobile.net.services.GitHubService
+import javax.inject.Inject
 
-class AboutViewModel(private val gitHubService: GitHubService) : ViewModel() {
+@HiltViewModel
+class AboutViewModel @Inject constructor(private val api: Api) : ViewModel() {
 
-    val gitHubRepos = request { gitHubService.listRepos("vizghar") }
+    val gitHubRepos = request { api.gitHubService.listRepos("vizghar") }
 
 }
